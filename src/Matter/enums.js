@@ -1,7 +1,7 @@
 export const AREAS_OF_LAW = {
   ALL: {
     label: 'Alle',
-    value: 'all',
+    value: undefined,
   },
   LABOR: {
     label: 'Arbeitsrecht',

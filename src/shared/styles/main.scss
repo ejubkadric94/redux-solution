@@ -30,4 +30,14 @@ $paddingHorizontalLong: 0.95rem;
     min-width: variables.$caseCardMinWidthShort;
     max-width: variables.$caseCardMaxWidthShort;
   }
+
+  &.full-size {
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+.layout {
+  background-color: transparent;
 }

@@ -1,9 +1,9 @@
-import { Content } from "antd/lib/layout/layout";
-import { Layout, Table } from "antd";
-import { useParams } from "react-router-dom/cjs/react-router-dom";
+import { Content } from 'antd/lib/layout/layout';
+import { Layout, Table } from 'antd';
+import { useParams } from 'react-router-dom/cjs/react-router-dom';
 
-import DetailsHeader from "./DetailsHeader";
-import { MATTER_DETAILS_TABLE_COLUMNS } from "Matter/enums";
+import DetailsHeader from './DetailsHeader';
+import { MATTER_DETAILS_TABLE_COLUMNS } from 'Matter/enums';
 
 const Details = () => {
   let { id } = useParams();
@@ -55,7 +55,7 @@ const Details = () => {
     }
   ]
   return (
-    <Layout style={{ backgroundColor: 'transparent' }}>
+    <Layout className='layout' >
       <DetailsHeader title={tasks[0].title} />
       <Content>
         <Table

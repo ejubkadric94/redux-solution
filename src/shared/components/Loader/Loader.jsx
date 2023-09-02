@@ -17,7 +17,7 @@ export default function Loader(props) {
   );
 
   return card ? (
-    <div className='card glass short'>{renderLoader()}</div>
+    <div className='card glass short full-size'>{renderLoader()}</div>
   ) : (
     renderLoader()
   );

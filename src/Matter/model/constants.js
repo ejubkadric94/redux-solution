@@ -1,0 +1,16 @@
+export const MATTER = {
+  FETCH_LIST: {
+    REQUEST: 'MATTER.FETCH_LIST.REQUEST',
+    SUCCESS: 'MATTER.FETCH_LIST.SUCCESS',
+    ERROR: 'MATTER.FETCH_LIST.ERROR',
+  },
+};
+
+export const FETCH_STATE = {
+  LOADING: 'LOADING',
+  ERROR: 'ERROR',
+  SUCCESS: 'SUCCESS',
+};
+
+export const SET_AREA_OF_LAW = 'SET_AREA_OF_LAW';
+export const SET_PAGE = 'SET_PAGE'; 

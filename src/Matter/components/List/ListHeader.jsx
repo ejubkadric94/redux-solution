@@ -1,28 +1,30 @@
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { Radio } from 'antd';
-import { useState } from 'react';
 import Title from 'antd/lib/typography/Title';
 import { Header } from 'antd/lib/layout/layout';
 
 import { AREAS_OF_LAW } from 'Matter/enums';
+import { getAreaOfLaw } from 'Matter/model/selectors';
+import { setAreaOfLaw } from 'Matter/model/actions';
 
-import './ListHeader.scss'
+import './ListHeader.scss';
 
-const ListHeader = () => {
-  const [radioValue, setRadioValue] = useState(AREAS_OF_LAW.ALL.value);
+const ListHeader = ({ fetchMatterList }) => {
+  const dispatch = useDispatch();
+  const areaOfLaw = useSelector(getAreaOfLaw);
 
-  const setRadioValueFunction = (e) => {
-    setRadioValue(e.target.value);
-  }
+  const setAreaOfLaw = (e) => {
+    dispatch(fetchMatterList(e.target.value));
+  };
 
   return (
     <Header className='header'>
       <Title level={1} className='title'>My Cases</Title>
       <Radio.Group
-        onChange={setRadioValueFunction}
-        value={radioValue}
+        onChange={setAreaOfLaw}
+        value={areaOfLaw}
       >
-        {Object.values(AREAS_OF_LAW).map(item => (
+        {Object.values(AREAS_OF_LAW).map((item) => (
           <Radio.Button
             value={item.value}
             key={item.value}
@@ -37,6 +39,8 @@ const ListHeader = () => {
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = dispatch => ({
+  fetchMatterList: (areaOfLaw) => dispatch(setAreaOfLaw(areaOfLaw)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListHeader);

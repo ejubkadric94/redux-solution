@@ -1,15 +1,26 @@
-// just an example, feel free to use your own constants
-export const MATTER = {
-  FETCH_LIST: {
-    REQUEST: 'MATTER.FETCH_LIST.REQUEST',
-    SUCCESS: 'MATTER.FETCH_LIST.SUCCESS',
-    ERROR: 'MATTER.FETCH_LIST.ERROR',
-  },
-};
+import { MATTER, SET_AREA_OF_LAW, SET_PAGE } from './constants';
 
-// example of an action creator
-export const fetchMatterList = () => ({
+export const fetchMatterList = (pageNumber, areaOfLaw) => ({
   type: MATTER.FETCH_LIST.REQUEST,
+  payload: { pageNumber, areaOfLaw },
 });
 
-// write your actions here
+export const fetchMatterListError = (error) => ({
+  type: MATTER.FETCH_LIST.ERROR,
+  payload: error,
+});
+
+export const storeMatterList = (matterList) => ({
+  type: MATTER.FETCH_LIST.SUCCESS,
+  payload: matterList,
+});
+
+export const setAreaOfLaw = (areaOfLaw) => ({
+  type: SET_AREA_OF_LAW,
+  payload: areaOfLaw,
+});
+
+export const setPage = (page) => ({
+  type: SET_PAGE,
+  payload: page,
+});

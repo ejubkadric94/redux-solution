@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { connect, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { Layout } from 'antd';
 import { Error, Loader } from 'shared/components';
 import { Content } from 'antd/lib/layout/layout';
@@ -13,16 +13,10 @@ import { getAreaOfLaw, getMattersListDisplayState, getMattersListError, getPageN
 
 import './List.scss';
 
-const List = ({ fetchMatterList }) => {
-  const pageNumber = useSelector(getPageNumber);
-  const areaOfLaw = useSelector(getAreaOfLaw);
-  const mattersListDisplayStatus = useSelector(getMattersListDisplayState);
-  const error = useSelector(getMattersListError);
-  
+const List = ({ fetchMatterList, pageNumber, areaOfLaw, mattersListDisplayStatus, error }) => {
   useEffect(() => {
     fetchMatterList(pageNumber, areaOfLaw);
   }, [fetchMatterList, pageNumber, areaOfLaw]);
-
 
   let content;
 
@@ -47,7 +41,12 @@ const List = ({ fetchMatterList }) => {
   );
 };
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state) => ({
+  pageNumber: getPageNumber(state),
+  areaOfLaw: getAreaOfLaw(state),
+  mattersListDisplayStatus: getMattersListDisplayState(state),
+  error: getMattersListError(state),
+});
 
 const mapDispatchToProps = dispatch => ({
   fetchMatterList: (pageNumber, areaOfLaw) => dispatch(fetchMatterList(pageNumber, areaOfLaw)),

@@ -24,3 +24,18 @@ export const setPage = (page) => ({
   type: SET_PAGE,
   payload: page,
 });
+
+export const fetchMatterDetails = (id) => ({
+  type: MATTER.FETCH_ITEM.REQUEST,
+  payload: id,
+});
+
+export const fetchMatterItemError = (error) => ({
+  type: MATTER.FETCH_ITEM.ERROR,
+  payload: error,
+});
+
+export const storeMatterDetails = (title, tasks) => ({
+  type: MATTER.FETCH_ITEM.SUCCESS,
+  payload: { title, tasks },
+});

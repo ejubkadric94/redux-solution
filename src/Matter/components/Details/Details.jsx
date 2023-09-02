@@ -1,71 +1,61 @@
 import { Content } from 'antd/lib/layout/layout';
 import { Layout, Table } from 'antd';
 import { useParams } from 'react-router-dom/cjs/react-router-dom';
+import { fetchMatterDetails } from 'Matter/model/actions';
 
 import DetailsHeader from './DetailsHeader';
 import { MATTER_DETAILS_TABLE_COLUMNS } from 'Matter/enums';
+import { connect } from 'react-redux';
+import { getMatterDetails, getMatterDetailsDisplayState, getMatterDetailsError } from 'Matter/model/selectors';
+import { useEffect } from 'react';
+import { FETCH_STATE } from 'Matter/model/constants';
+import { Error, Loader } from 'shared/components';
 
-const Details = () => {
-  let { id } = useParams();
-  const tasks = [
-    {
-        "_id": 1,
-        "title": "Push blue pill",
-        "status": "done"
-    },
-    {
-        "_id": 2,
-        "title": "Find white pill",
-        "status": "done"
-    },
-    {
-        "_id": 3,
-        "title": "Erase blue cable",
-        "status": "created"
-    },
-    {
-        "_id": 4,
-        "title": "Connect yellow network",
-        "status": "inProgress"
-    },
-    {
-        "_id": 5,
-        "title": "Find white socket",
-        "status": "inProgress"
-    },
-    {
-        "_id": 6,
-        "title": "Cut red cable",
-        "status": "inProgress"
-    },
-    {
-        "_id": 7,
-        "title": "Cut white cable",
-        "status": "created"
-    },
-    {
-        "_id": 8,
-        "title": "Connect yellow cable",
-        "status": "created"
-    },
-    {
-        "_id": 9,
-        "title": "Erase blue cable",
-        "status": "inProgress"
-    }
-  ]
-  return (
-    <Layout className='layout' >
-      <DetailsHeader title={tasks[0].title} />
-      <Content>
+const Details = ({ fetchMatterDetails, matterDetails, matterDetailsDisplayStatus, matterDetailsError }) => {
+  const { id } = useParams();
+  
+  useEffect(() => {
+    fetchMatterDetails({ id });
+  }, [id, fetchMatterDetails]);
+
+  let content, title = 'Loading...';
+
+  switch (matterDetailsDisplayStatus) {
+    case FETCH_STATE.SUCCESS:
+      content = (
         <Table
           columns={MATTER_DETAILS_TABLE_COLUMNS}
-          dataSource={tasks}
+          dataSource={matterDetails.tasks} // use this instead of tasks
           pagination={false}
         />
-      </Content>
+      );
+      title = matterDetails.title;
+      break;
+    case FETCH_STATE.ERROR:
+      content = <Error error={matterDetailsError} />;
+      break;
+    case FETCH_STATE.LOADING:
+    default:
+      content = <Loader />;
+      break;
+  }
+
+  return (
+    <Layout className='layout' >
+      <DetailsHeader title={title} />
+      <Content>{content}</Content>
     </Layout>
-  )
+  );
 };
 
-export default Details;
+const mapStateToProps = (state) => ({
+  matterDetails: getMatterDetails(state),
+  matterDetailsDisplayStatus: getMatterDetailsDisplayState(state),
+  matterDetailsError: getMatterDetailsError(state),
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchMatterDetails: id => dispatch(fetchMatterDetails(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Details);

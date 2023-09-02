@@ -7,7 +7,8 @@ import { createBrowserHistory } from 'history';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 
 // reducers
-import matterReducer from './Matter/model/reducer';
+import matterListReducer from './Matter/model/listReducer';
+import matterDetailsReducer from './Matter/model/detailsReducer';
 
 // sagas
 import matterSagas from './Matter/model/sagas';
@@ -15,7 +16,8 @@ import matterSagas from './Matter/model/sagas';
 // please keep reducers in alphabetical order
 const createRootReducer = (history) =>
   combineReducers({
-    matter: matterReducer,
+    matterList: matterListReducer,
+    matterDetails: matterDetailsReducer,
     router: connectRouter(history),
   });
 

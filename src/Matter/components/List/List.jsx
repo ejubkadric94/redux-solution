@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { Layout, Table } from 'antd';
-import { Content } from 'antd/lib/layout/layout';
 // import { NoData, Error, Loader } from 'shared/components';
+import { Content } from 'antd/lib/layout/layout';
 
 import ListHeader from './ListHeader';
 import ClickableTableRow from './ClickableTableRow';
@@ -96,7 +96,7 @@ const List = () => {
           })}
           components={{
             body: {
-              row: <ClickableTableRow />
+              row: ClickableTableRow
             }
           }}
         />

@@ -4,7 +4,7 @@ import { LeftOutlined } from '@ant-design/icons';
 import './BackNavigation.scss';
 
 export default function BackNavigation({ onGoBack }) {
-  let history = useHistory();
+  const history = useHistory();
   const handleGoBack = () => (onGoBack ? onGoBack() : history.goBack());
   return (
     <div className='navigate-back' onClick={handleGoBack}>

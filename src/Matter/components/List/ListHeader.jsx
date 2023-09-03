@@ -1,4 +1,4 @@
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { Radio } from 'antd';
 import Title from 'antd/lib/typography/Title';
 import { Header } from 'antd/lib/layout/layout';
@@ -9,38 +9,31 @@ import { setAreaOfLaw } from 'Matter/model/actions';
 
 import './ListHeader.scss';
 
-const ListHeader = ({ fetchMatterList }) => {
-  const dispatch = useDispatch();
-  const areaOfLaw = useSelector(getAreaOfLaw);
+const ListHeader = ({ onSetAreaOfLaw, areaOfLaw }) => (
+  <Header className='header'>
+    <Title level={1} className='title'>My Cases</Title>
+    <Radio.Group
+      onChange={onSetAreaOfLaw}
+      value={areaOfLaw}
+    >
+      {Object.values(AREAS_OF_LAW).map((item, index) => (
+        <Radio.Button
+          value={item.value}
+          key={index}
+        >
+          {item.label}
+        </Radio.Button>
+      ))}
+    </Radio.Group>
+  </Header>
+);
 
-  const setAreaOfLaw = (e) => {
-    dispatch(fetchMatterList(e.target.value));
-  };
-
-  return (
-    <Header className='header'>
-      <Title level={1} className='title'>My Cases</Title>
-      <Radio.Group
-        onChange={setAreaOfLaw}
-        value={areaOfLaw}
-      >
-        {Object.values(AREAS_OF_LAW).map((item) => (
-          <Radio.Button
-            value={item.value}
-            key={item.value}
-          >
-            {item.label}
-          </Radio.Button>
-        ))}
-      </Radio.Group>
-    </Header>
-  );
-};
-
-const mapStateToProps = () => ({});
+const mapStateToProps = (state) => ({
+  areaOfLaw: getAreaOfLaw(state),
+});
 
 const mapDispatchToProps = dispatch => ({
-  fetchMatterList: (areaOfLaw) => dispatch(setAreaOfLaw(areaOfLaw)),
+  onSetAreaOfLaw: (event) => dispatch(setAreaOfLaw(event.target.value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListHeader);

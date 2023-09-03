@@ -1,5 +1,5 @@
-import { call, put, takeLeading } from 'redux-saga/effects';
-import { fetchMatterListError, storeMatterDetails, storeMatterList } from './actions';
+import { call, put, takeLatest } from 'redux-saga/effects';
+import { fetchMatterItemError, fetchMatterListError, storeMatterDetails, storeMatterList } from './actions';
 import { matterApi } from './api';
 import { MATTER } from './constants';
 
@@ -25,11 +25,11 @@ function* handleFetchMatterDetails({ payload }) {
 }
 
 function* watchFetchMatterList() {
-  yield takeLeading(MATTER.FETCH_LIST.REQUEST, handleFetchMatterList);
+  yield takeLatest(MATTER.FETCH_LIST.REQUEST, handleFetchMatterList);
 }
 
 function* watchFetchMatterDetails() {
-  yield takeLeading(MATTER.FETCH_ITEM.REQUEST, handleFetchMatterDetails);
+  yield takeLatest(MATTER.FETCH_ITEM.REQUEST, handleFetchMatterDetails);
 }
 
 const matterSagas = [watchFetchMatterList(), watchFetchMatterDetails()];

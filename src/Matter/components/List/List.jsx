@@ -13,10 +13,10 @@ import { getAreaOfLaw, getMattersListDisplayState, getMattersListError, getPageN
 
 import './List.scss';
 
-const List = ({ fetchMatterList, pageNumber, areaOfLaw, mattersListDisplayStatus, error }) => {
+const List = ({ onFetchMatterList, pageNumber, areaOfLaw, mattersListDisplayStatus, error }) => {
   useEffect(() => {
-    fetchMatterList(pageNumber, areaOfLaw);
-  }, [fetchMatterList, pageNumber, areaOfLaw]);
+    onFetchMatterList(pageNumber, areaOfLaw);
+  }, [onFetchMatterList, pageNumber, areaOfLaw]);
 
   let content;
 
@@ -49,7 +49,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchMatterList: (pageNumber, areaOfLaw) => dispatch(fetchMatterList(pageNumber, areaOfLaw)),
+  onFetchMatterList: (pageNumber, areaOfLaw) => dispatch(fetchMatterList(pageNumber, areaOfLaw)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

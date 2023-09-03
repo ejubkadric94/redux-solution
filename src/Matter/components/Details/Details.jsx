@@ -2,12 +2,12 @@ import { Content } from 'antd/lib/layout/layout';
 import { Layout, Table } from 'antd';
 import { useParams } from 'react-router-dom/cjs/react-router-dom';
 import { fetchMatterDetails } from 'Matter/model/actions';
+import { connect } from 'react-redux';
+import { useEffect } from 'react';
 
 import DetailsHeader from './DetailsHeader';
 import { MATTER_DETAILS_TABLE_COLUMNS } from 'Matter/enums';
-import { connect } from 'react-redux';
 import { getMatterDetails, getMatterDetailsDisplayState, getMatterDetailsError } from 'Matter/model/selectors';
-import { useEffect } from 'react';
 import { FETCH_STATE } from 'Matter/model/constants';
 import { Error, Loader } from 'shared/components';
 
@@ -25,7 +25,8 @@ const Details = ({ fetchMatterDetails, matterDetails, matterDetailsDisplayStatus
       content = (
         <Table
           columns={MATTER_DETAILS_TABLE_COLUMNS}
-          dataSource={matterDetails.tasks} // use this instead of tasks
+          dataSource={matterDetails.tasks}
+          rowKey={record => record._id}
           pagination={false}
         />
       );

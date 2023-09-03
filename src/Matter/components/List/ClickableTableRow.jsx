@@ -1,6 +1,8 @@
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
-const ClickableTableRow = ({ record, className, ...props }) => {
+import './ClickableTableRow.scss';
+
+const ClickableTableRow = ({ record, ...props }) => {
   const history = useHistory();
 
   const onClick = () => {
@@ -11,7 +13,11 @@ const ClickableTableRow = ({ record, className, ...props }) => {
   };
 
   return (
-    <tr {...props} className={`ant-table-row ${className}`} onClick={onClick} />
+    <tr
+      {...props}
+      className={'ant-table-row clickable'}
+      onClick={onClick}
+    />
   );
 };
 
